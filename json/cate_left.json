@@ -1,1 +1,71 @@
-{ "result": { "cates": [{ "id": 0, "title": "Funiture", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "cooking", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Accessories", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Fashion", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Clocks", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Loghting", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Toys", "icon": "fa fa-angellist", "link": "#", "ajax": "test.json" }, { "id": 0, "title": "Hand Made", "icon": "fa fa-angellist", "link": "#", "ajax": "" }, { "id": 0, "title": "Minimalism", "icon": "fa fa-angellist", "link": "#", "ajax": "" }, { "id": 0, "title": "Electronics", "icon": "fa fa-angellist", "link": "#", "ajax": "" }, { "id": 0, "title": "Cars", "icon": "fa fa-angellist", "link": "#", "ajax": "" }] } }
+{
+	"result": {
+		"cates": [{
+			"id": 0,
+			"title": "Furniture",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": "array"
+		}, {
+			"id": 0,
+			"title": "Cooking",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": "../json/cooking.json"
+		}, {
+			"id": 0,
+			"title": "Accessories",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": "firebase"
+		}, {
+			"id": 0,
+			"title": "Fashion",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Clocks",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Lighting",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Toys",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Hand Made",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Minimalism",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Electronics",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}, {
+			"id": 0,
+			"title": "Cars",
+			"icon": "fas fa-edit",
+			"link": "#",
+			"ajax": ""
+		}]
+	}
+}

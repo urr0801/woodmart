@@ -1,18 +1,16 @@
 var config = {
-	apiKey: "AIzaSyCxhj2vnag1yJ0yKy0by8_bTHD4H0C3-MI",
-	authDomain: "urr0801-mall.firebaseapp.com",
-	databaseURL: "https://urr0801-mall.firebaseio.com",
-	projectId: "urr0801-mall",
-	storageBucket: "urr0801-mall.appspot.com",
-	messagingSenderId: "948031803552"
+	apiKey: "AIzaSyAmJXF4xCHexyq0ofjmfBS1HCvnlbeOwJM",
+	authDomain: "booldook-mall.firebaseapp.com",
+	databaseURL: "https://booldook-mall.firebaseio.com",
+	projectId: "booldook-mall",
+	storageBucket: "booldook-mall.appspot.com",
+	messagingSenderId: "726805469501"
 };
 firebase.initializeApp(config);
-
 
 var db = firebase.database();
 var ref;
 var key;
-
 
 /***** HOME ******/
 function initHome() {
@@ -27,7 +25,7 @@ initHome();
 function homeAdd(data) {
 	var id = data.key;
 	var img = data.val().img;
-	var src = '../img/snow/site/' + img;
+	var src = '../img/main/' + img;
 	var title = data.val().title;
 	var link = data.val().link;
 	var html = '';
@@ -62,8 +60,8 @@ function homeRev(data) {
 function homeChg(data) {
 	var id = data.key;
 	var ul = $("#" + id);
-	$("img", ul).attr("src", "../img/snow/site/" + data.val().img);
-	alert("수정 완료");
+	$("img", ul).attr("src", "../img/main/" + data.val().img);
+	alert("수정되었습니다.");
 }
 
 
@@ -72,7 +70,7 @@ $("#home_save").on('click', function () {
 	var title = $("#home_wr .title").val();
 	var link = $("#home_wr .link").val();
 	if (title == '' || link == '' || img == '') {
-		alert("내용");
+		alert("내용을 적어주세요.");
 	} else {
 		ref = db.ref("root/home");
 		ref.push({
@@ -80,7 +78,7 @@ $("#home_save").on('click', function () {
 			title: title,
 			link: link
 		}).key;
-		alert("등록 완료");
+		alert("등록되었습니다.");
 	}
 });
 
@@ -91,7 +89,7 @@ function homeUp(obj) {
 	var title = $(".title", ul).val();
 	var link = $(".link", ul).val();
 	if (title == '' || link == '' || img == '') {
-		alert("내용");
+		alert("내용을 적어주세요.");
 	} else {
 		ref = db.ref("root/home/" + id);
 		ref.update({
@@ -113,8 +111,9 @@ function homeDel(obj) {
 }
 
 /***** SHOP ******/
+//페이지가 생성될 때 한번 실행되며 shop레퍼런스에 콜백을 링크한다.
 function initShop() {
-	$("#shop_wrap > ul").remove();
+	$(".grid > ul").remove();
 	ref = db.ref("root/shop");
 	ref.on("child_added", shopAdd);
 	ref.on("child_removed", shopRev);
@@ -122,10 +121,11 @@ function initShop() {
 }
 initShop();
 
+//chk 변수의 값(C, U)에 따라 ul을 생성 또는 수정한다.
 function shopMake(chk, data) {
 	var id = data.key;
 	var html = '';
-	if(chk == 'C') html += '<ul id="' + id + '">';
+	if(chk == 'C') html += '<ul id="' + id + '" class="grid-item">';
 	html += '<li class="shop_li1 clear">';
 	html += '<div>';
 	html += '<input type="text" value="' + data.val().title + '" class="title form-control" placeholder="제목">';
@@ -134,8 +134,8 @@ function shopMake(chk, data) {
 	html += '<input type="text" value="' + data.val().link + '" class="link form-control" placeholder="링크">';
 	html += '</div>';
 	html += '<div>';
-	html += '<button class="btn btn-danger shop_del1" onclick="shopDel(this);">삭제</button><br>';
-	html += '<button class="btn btn-warning shop_up1" onclick="shopUp(this);">수정</button>';
+	html += '<button class="btn btn-danger" onclick="shopDel(this);">삭제</button>';
+	html += '<button class="btn btn-warning" onclick="shopUp(this);">수정</button>';
 	html += '</div>';
 	html += '</li>';
 	html += '<li class="shop_li2 clear shop_li2_wr">';
@@ -146,12 +146,12 @@ function shopMake(chk, data) {
 	html += '<input type="text" class="link form-control" placeholder="링크">';
 	html += '</div>';
 	html += '<div>';
-	html += '<button class="btn btn-primary shop_wr2" onclick="shopAdd2(this)">저장</button>';
+	html += '<button class="btn btn-primary" onclick="shopAdd2(this)">저장</button>';
 	html += '</div>';
 	html += '</li>';
 	if(chk == 'C') {
 		html += '</ul>';
-		$("#shop_wrap").append(html);
+		$(".grid").append(html);
 	}
 	else if(chk == 'U') {
 		$("#"+id).html(html);
@@ -167,8 +167,8 @@ function shopMake(chk, data) {
 				html += '<input type="text" value="'+item.val().link+'" class="link form-control" placeholder="링크">';
 				html += '</div>';
 				html += '<div>';
-				html += '<button class="btn btn-primary shop_wr2" onclick="shopChg2(this)">수정</button><br>';
-				html += '<button class="btn btn-danger shop_Del2" onclick="shopDel2(this)">삭제</button>';
+				html += '<button class="btn btn-danger" onclick="shopDel2(this);">삭제</button>';
+				html += '<button class="btn btn-warning" onclick="shopUp2(this);">수정</button>';
 				html += '</div>';
 				html += '</li>';
 				$("#"+id).append(html);
@@ -177,23 +177,25 @@ function shopMake(chk, data) {
 	}
 }
 
+//child_added 콜백
 function shopAdd(data) {
 	var id = data.key;
 	shopMake('C', data);
 }
 
+//child_remove 콜백
 function shopRev(data) {
 	var id = data.key;
 	$("#"+id).remove();
-	// console.log("2e123e");
 }
 
+//child_changed 콜백
 function shopChg(data) {
 	var id = data.key;
 	shopMake('U', data);
-	// console.log("2e123e");
 }
 
+//1차 카테고리 생성
 $(".shop_wr").click(function () {
 	var title = $(".shop_li0 .title").val();
 	var icon = $(".shop_li0 .icon").val();
@@ -212,6 +214,8 @@ $(".shop_wr").click(function () {
 		}).key;
 	}
 });
+
+//2차 카테고리 생성
 function shopAdd2(obj) {
 	var div = $(obj).parent().prev();
 	var idUl = $(obj).parent().parent().parent().attr("id");
@@ -228,61 +232,71 @@ function shopAdd2(obj) {
 	}).key;
 }
 
-function shopDel(obj){
+//1차 카테고리 삭제
+function shopDel(obj) {
+	if(confirm("정말로 삭제하시겠습니까?\n1차 카테고리 삭제시 하위 카테고리도 삭제됩니다.")) {
+		var id = $(obj).parent().parent().parent().attr("id");
+		db.ref("root/shop/"+id).remove();
+	}
+}
+
+//1차 카테고리 수정
+function shopUp(obj) {
 	var id = $(obj).parent().parent().parent().attr("id");
-	confirm("정말로 삭제하시겠습니까?")
-	db.ref("root/shop/" + id).remove();
-	// console.log(id);
-}
-
-function shopUp(obj){
-	var ul = $(obj).parent().parent().parent();
-	var id = ul.attr("id");
-	var title = $(".title",ul).val();
-	var icon = $(".icon",ul).val();
-	var color = $(".color",ul).val();
-	var link = $(".link",ul).val();
-
-	ref = db.ref("root/shop/"+id);
-		ref.update({
+	var div = $(obj).parent().prev();
+	var title = $(".title", div).val();
+	var icon = $(".icon", div).val();
+	var color = $(".color", div).val();
+	var link = $(".link", div).val();
+	if(title == "") {
+		alert("카테고리 명을 입력하세요.");
+		$(".title", div).focus();
+		return false;
+	}
+	else {
+		db.ref("root/shop/"+id).update({
 			title: title,
 			icon: icon,
 			color: color,
 			link: link
-		})
+		});
+	}
 }
 
+//2차 카테고리 삭제
+function shopDel2(obj) {
+	if(confirm("정말로 삭제하시겠습니까?")) {
+		var id = $(obj).parent().parent().parent().attr("id");	//ul
+		var id2 = $(obj).parent().parent().attr("id");	//li
+		db.ref("root/shop/"+id+"/sub/"+id2).remove();
+	}
+}
 
-function shopChg2(obj){
-	var ul = $(obj).parent().parent().parent();
-	var ulid = ul.attr("id");
-	var li = $(obj).parent().parent();
-	var liid = li.attr("id");
-	var title = $(".title",li).val();
-	var icon = $(".icon",li).val();
-	var color = $(".color",li).val();
-	var link = $(".link",li).val();
-
-	ref = db.ref("root/shop/"+ulid+"/sub/"+liid);
-		ref.update({
+//2차 카테고리 수정
+function shopUp2(obj) {
+	var id = $(obj).parent().parent().parent().attr("id");	//ul
+	var id2 = $(obj).parent().parent().attr("id");	//li
+	var div = $(obj).parent().prev();
+	var title = $(".title", div).val();
+	var icon = $(".icon", div).val();
+	var color = $(".color", div).val();
+	var link = $(".link", div).val();
+	if(title == "") {
+		alert("카테고리 명을 입력하세요.");
+		$(".title", div).focus();
+		return false;
+	}
+	else {
+		db.ref("root/shop/"+id+"/sub/"+id2).update({
 			title: title,
 			icon: icon,
 			color: color,
 			link: link
-		})
+		});
+	}
 }
 
 
-
-
-function shopDel2(obj){
-	var ul = $(obj).parent().parent().parent().attr("id");
-	var li = $(obj).parent().parent().attr("id");
-	confirm("정말로 삭제하시겠습니까?")
-	db.ref("root/shop/"+ul+"/sub/"+li).remove();
-	console.log(ul);
-	console.log(li);
-}
 
 /***** UI ******/
 $(".nav").on("click", function () {
@@ -305,4 +319,9 @@ $(".nav").eq(0).trigger("click");
 /*
 || : or 연산자  (이거나) 	=> true||true(true) / true||false(true)  / false||false (false)
 && : and 연산자 (그리고) 	=> true||true(true) / true||false(false) / false||false (false)
+
+var img = $("#home_wr .tit_img").val();
+var img = $(".tit_img", "#home_wr").val();
+var img = $("#home_wr").find(".tit_img").val();
+var img = $("#home_wr").children(".tit_img").val();
 */
