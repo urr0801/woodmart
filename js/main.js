@@ -11,12 +11,12 @@ $('body').imagesLoaded()
 
 /***** firebase 초기 변수 *****/
 var config = {
-	apiKey: "AIzaSyAmJXF4xCHexyq0ofjmfBS1HCvnlbeOwJM",
-	authDomain: "booldook-mall.firebaseapp.com",
-	databaseURL: "https://booldook-mall.firebaseio.com",
-	projectId: "booldook-mall",
-	storageBucket: "booldook-mall.appspot.com",
-	messagingSenderId: "726805469501"
+	apiKey: "AIzaSyCxhj2vnag1yJ0yKy0by8_bTHD4H0C3-MI",
+	authDomain: "urr0801-mall.firebaseapp.com",
+	databaseURL: "https://urr0801-mall.firebaseio.com",
+	projectId: "urr0801-mall",
+	storageBucket: "urr0801-mall.appspot.com",
+	messagingSenderId: "948031803552"
 };
 firebase.initializeApp(config);
 
@@ -34,7 +34,7 @@ var key;
 function homeAdd(data) {
 	var id = data.key;
 	var img = data.val().img;
-	var src = '../img/main/'+img;
+	var src = '../img/snow/site/'+img;
 	var title = data.val().title;
 	var link = data.val().link;
 	var html = '';
